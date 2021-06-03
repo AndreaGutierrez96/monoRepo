@@ -1,0 +1,155 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "restaurante-publico",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
+    "restaurante-publico": {
+      "projectType": "application",
+      "root": "apps/restaurante-publico",
+      "sourceRoot": "apps/restaurante-publico/src",
+      "prefix": "restaurante",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/restaurante-publico",
+            "index": "apps/restaurante-publico/src/index.html",
+            "main": "apps/restaurante-publico/src/main.ts",
+            "polyfills": "apps/restaurante-publico/src/polyfills.ts",
+            "tsConfig": "apps/restaurante-publico/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/restaurante-publico/src/favicon.ico",
+              "apps/restaurante-publico/src/assets"
+            ],
+            "styles": ["apps/restaurante-publico/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/restaurante-publico/src/environments/environment.ts",
+                  "with": "apps/restaurante-publico/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "restaurante-publico:build:production"
+            },
+            "development": {
+              "browserTarget": "restaurante-publico:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "restaurante-publico:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/restaurante-publico/src/**/*.ts",
+              "apps/restaurante-publico/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/restaurante-publico"],
+          "options": {
+            "jestConfig": "apps/restaurante-publico/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "restaurante-publico-e2e": {
+      "root": "apps/restaurante-publico-e2e",
+      "sourceRoot": "apps/restaurante-publico-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/restaurante-publico-e2e/cypress.json",
+            "tsConfig": "apps/restaurante-publico-e2e/tsconfig.e2e.json",
+            "devServerTarget": "restaurante-publico:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "restaurante-publico:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/restaurante-publico-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
