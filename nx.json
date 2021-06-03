@@ -25,6 +25,34 @@
     "restaurante-publico-e2e": {
       "tags": [],
       "implicitDependencies": ["restaurante-publico"]
+    },
+    "admin": {
+      "tags": []
+    },
+    "admin-e2e": {
+      "tags": [],
+      "implicitDependencies": ["admin"]
+    },
+    "administrador": {
+      "tags": []
+    },
+    "administrador-e2e": {
+      "tags": [],
+      "implicitDependencies": ["administrador"]
+    },
+    "administrador-pro": {
+      "tags": []
+    },
+    "administrador-pro-e2e": {
+      "tags": [],
+      "implicitDependencies": ["administrador-pro"]
+    },
+    "administrador-demo": {
+      "tags": []
+    },
+    "administrador-demo-e2e": {
+      "tags": [],
+      "implicitDependencies": ["administrador-demo"]
     }
   }
 }
